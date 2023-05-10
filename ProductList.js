@@ -2,7 +2,6 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-
 //Création de mon composant liste des produits et rajout du bouton ajout au panier
 class ProductCard extends React.Component {
   handleAddToCart = () => {
@@ -11,17 +10,14 @@ class ProductCard extends React.Component {
   render() {
     return (
       
-      <div className="product-card col-12 col-md-3 bgTurquoise pb-3">
-        
+      <div className="product-card col-12 col-md-4 bgTurquoise pb-4">
         <img className="img-fluid pt-4"src={require(`./assets/imagesEtLogo/images/${this.props.image}`)} alt={this.props.title} />
         <h4>{this.props.title}</h4>
         <p>{this.props.description}</p>     
         <p className="price"><strong>Prix: {this.props.price} €</strong></p>
         <p><strong>Note: {this.props.note}</strong></p>
         <button onClick={this.handleAddToCart}>Ajouter au panier</button>
-        
       </div>
-      
       
     )
   };
@@ -112,18 +108,7 @@ class ProductList extends React.Component {
         categories: ["Tous", "Chocolat au lait"]
       }
     ],
-    filters: ["Tous","chocolat blanc","Chocolat au lait","Chocolat noir","Noix-noisette","Fruit","Caramel","Liqueur"],
-    selectedFilters: ["Tous"]
-  }
-  //Rajout pour le filtre par catégories
-  handleFilterChange = (filter) => {
-    let selectedFilters = [...this.state.selectedFilters];
-    if (selectedFilters.includes(filter)) {
-      selectedFilters = selectedFilters.filter(f => f !== filter);
-    } else {
-      selectedFilters.push(filter);
-    }
-    this.setState({ selectedFilters });
+    filters: ["Tous","chocolat blanc","Chocolat au lait","Chocolat noir","Noix-noisette","Fruit","Caramel","Liqueur"]
   }
 
  // pour activer l'ajout du produit au panier
@@ -135,7 +120,10 @@ class ProductList extends React.Component {
   }
   
 
-  /*pour mettre mes produits 3 par 3 dans ma grille
+
+
+
+ // pour mettre mes produits 3 par 3 dans ma grille
   render() {
     let rows = [];
     let products = this.state.products;
@@ -152,46 +140,8 @@ class ProductList extends React.Component {
         />
       ));
       rows.push(<div className="row">{row}</div>);
-    }*/
-//Ajout de deux blocs pour le filtre par catégorie  
-render() {
-  let rows = [];
-  let products = this.state.products.filter(product => {
-    return this.state.selectedFilters.length === 0 || this.state.selectedFilters.some(f => product.categories.includes(f));
-  });
-
-  for (let i = 0; i < products.length; i += 3) {
-    let row = products.slice(i, i + 3).map((product) => (
-      <ProductCard
-        key={product.id}
-        title={product.title}
-        description={product.description}
-        note={product.note}
-        price={product.price}
-        image={product.image}
-        categories={product.categories}
-        addToCart={this.handleAddToCart}
-      />
-    ));
-    rows.push(<div className="row" key={i}>{row}</div>);
-    return (
-      <div>
-       
-    <div>
-      {this.state.filters.map(filter => (
-        <label key={filter} style={{ display: "block" }}>
-          <input type="checkbox" checked={this.state.selectedFilters.includes(filter)} onChange={() => this.handleFilterChange(filter)} />
-          {filter}
-        </label>
-      ))}
-    </div>
-    {rows}
-  </div>
-    );
-  }
-
-  
-// pour retourner le titre de mon composant de produits: la boutique
+    }
+// pour retourner le tire de mon composant de produits: la boutique
     return (
       <div className="container">
         <h1 className="text-center pt-5 pb-4 orange">BOUTIQUE</h1>
