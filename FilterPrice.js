@@ -8,8 +8,10 @@ class ProductCard extends React.Component {
   }
 
   render() {
-    return (
-      <div className="product-card col-12 col-md-3 bgTurquoise pt-4 pb-3 me-2">
+  let rows = []; 
+      return (
+   
+      <div className="product-card col-12 col-md-3 bgTurquoise mt-1 ms-1 pt-3 pb-3 me-2">
         <div id="card" className='border'>
           <img className="img-fluid pt-4" src={require(`./assets/imagesEtLogo/images/${this.props.image}`)} alt={this.props.title} />
           <h4>{this.props.title}</h4>
@@ -18,6 +20,8 @@ class ProductCard extends React.Component {
           <p><strong>Note: {this.props.note} /5</strong></p>
           <button onClick={this.handleAddToCart}>Ajouter au panier</button>
         </div>
+      
+      {rows}
       </div>
     );
   }
@@ -112,6 +116,8 @@ class FilterPrice extends React.Component {
     selectedFilters: ["Tous"],
     minPrice: "0",
     maxPrice: "100",
+    minRating: "0",
+    maxRating: "5",
   }
 
   handleAddToCart = (productId) => {
@@ -139,17 +145,40 @@ class FilterPrice extends React.Component {
     this.setState({ maxPrice: event.target.value });
   }
 
+  handleMinRatingChange = (event) => {
+    this.setState({ minRating: parseInt(event.target.value) });
+  }
+  
+  handleMaxRatingChange = (event) => {
+    this.setState({ maxRating: parseInt(event.target.value) });
+  }
+  
+  handleRatingChange = (rating) => {
+    if (this.state.minRating === rating) {
+      this.setState({ minRating: null });
+    } else if (this.state.maxRating === rating) {
+      this.setState({ maxRating: null });
+    } else {
+      this.setState({ minRating: rating, maxRating: rating });
+    }
+  }
+
   render() {
     let rows = [];
     let products = this.state.products.filter(product => {
-      const selectedFilters = this.state.selectedFilters;
-      const minPrice = this.state.minPrice;
-      const maxPrice = this.state.maxPrice;
-      const matchFilters = selectedFilters.includes("Tous") || selectedFilters.some(f => product.categories.includes(f));
-      const matchMinPrice = minPrice === "0" || product.price >= minPrice;
-      const matchMaxPrice = maxPrice === "100" || product.price <= maxPrice;
-      return matchFilters && matchMinPrice && matchMaxPrice;
-    });
+        const selectedFilters = this.state.selectedFilters;
+        const minPrice = this.state.minPrice;
+        const maxPrice = this.state.maxPrice;
+        const minRating = this.state.minRating;
+        const maxRating = this.state.maxRating;
+        const matchRating =
+          (!minRating || product.note >= minRating) &&
+          (!maxRating || product.note <= maxRating);
+        const matchFilters = selectedFilters.includes("Tous") || selectedFilters.some(f => product.categories.includes(f));
+        const matchMinPrice = minPrice === "0" || product.price >= minPrice;
+        const matchMaxPrice = maxPrice === "100" || product.price <= maxPrice;       
+        return matchFilters && matchMinPrice && matchMaxPrice && matchRating;
+      });
 
     for (let i = 0; i < products.length; i += 3) {
       let row = products.slice(i, i + 3).map((product) => (
@@ -168,7 +197,7 @@ class FilterPrice extends React.Component {
 
     return (
       <div>
-        <div className='bgYellow col-12 col-md-2 col-lg-2' id='filtre'>
+        <div className='bgYellow col-12 col-md-2 col-lg-2 ps-2 pt-2 pb-2' id='filtre'>
         <h4>Filtre</h4>
         <span className="label"><strong>Catégories:</strong></span>
           <div>
@@ -199,6 +228,25 @@ class FilterPrice extends React.Component {
                     type="number"
                     value={this.state.maxPrice}
                     onChange={this.handleMaxPriceChange}
+                />
+                </label>
+            </div>
+            <div>
+            <span className="label"><strong>Notes:</strong></span>
+                <label>
+                Note minimum:
+                <input
+                    type="number"
+                    value={this.state.minRating}
+                    onChange={this.handleMinRatingChange}
+                />
+                </label>
+                <label>
+                Note maximum:
+                <input
+                    type="number"
+                    value={this.state.maxRating}
+                    onChange={this.handleMaxRatingChange}
                 />
                 </label>
             </div>
