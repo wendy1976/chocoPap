@@ -57,6 +57,14 @@
 #instagram{
     padding-right: 10%; 
 }
+/*background du bouton panier*/
+#panier{
+    background-color: #55C0CF;
+}
+/*effet de survol du bouton panier*/
+#panier:hover{
+   background-color: #B65F28;
+}
 /*réglage du slider*/
 #slider {
     position: relative;
@@ -93,20 +101,30 @@
 #slider:hover #precedent,
 #slider:hover #suivant {
     opacity: 1;
+    color: #B65F28;
+   
 }
 /*le positionnement de mon bouton voir la boutique au milieu du slide */
 #laBoutique{
     top: -460px;
     position: relative;
-    left: 43%;   
-}
+    left: 43%; 
+    background-color: #55C0CF;
+    }
+/*effet de survol mon bouton voir la boutique au milieu du slide */    
+#laBoutique:hover{
+    color: #B65F28;
+
+    }    
 /*page boutique: le paramètres du container, tableau js avec les produits et les prix*/
 #product-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     padding-left: 2%;
-    margin-left: 0%;
+    margin-left: 0%;   
+    padding-top: 0%;
+    margin-top: 0%;
 }
  
 #product-container, img {
@@ -115,12 +133,29 @@
    margin-right: 0%;
 }
 .product-card { 
-    margin-bottom: 2%;
-    width: 30%;
+   
+    width: 30%; 
+    top: -350px;
+    position: relative;
+    left: 20%; 
+   
+  
+
    
   }
 .product-card, h3 { 
     font-size: 1.2em; 
 }  
+
+#card{
+    border-color: #B65F28;
+}
+
+#filtre{
+    top: 185px;
+    position: relative;
+    left: 5%;  
+   
+}
 
   
