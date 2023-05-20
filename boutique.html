@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/chocoPap.css">
+    <script src="js/bootstrap.bundle.min.js" defer></script>
+    <script src="js/chocoPap.js" defer></script>
+    <title>Choco Pap</title>
+</head>
+<body>
+<!--Ici commence le main Header avec la barre de navigation et le panier-->     
+    <header class="navbar navbar-expand-md navbar-light bgYellow px-3" id="mainHeader">
+        <a href="#" class="navbar-brand">
+            <img src="/imagesEtLogo/images/logo.png" alt="logo" title="Logo Choco Pap" class="p-2">
+        </a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-content">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbar-content">
+            <nav>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item h4"><a class="nav-link active" href="index.html">Accueil</a></li>
+                    <li class="nav-item h4"><a class="nav-link active" href="boutique.html">Boutique</a></li>                
+                </ul>
+            </nav>
+        </div>
+        <button type="button" class="btn bgTurquoise d-none d-md-block" data-bs-toggle="offcanvas" data-bs-target="#userTools">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
+                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+              </svg>
+        </button>
+    </header>
+<!--Ici se termine le mainheader -->
+<!--Début du contenu qui comprend un filtre et des fiches procduits-->
+    <main>
+ <!--Mise en place des fiches produits et du filtre -->        
+    <h1 class="text-center pt-5 pb-4 orange">BOUTIQUE</h1>  
+  
+    <div class="container">
+        <div class="row">
+          <div class="col-md-3 bgYellow">
+    <!--mise en place du filtre par catégories, prix et notes-->  
+            <h2>Filtres</h2>      
+                <h2 class="h5">Catégories</h2>
+                <div id="categories">
+                    <label><input type="checkbox" name="categorie" value="Tous">Tous</label><br>
+                    <label><input type="checkbox" name="categorie" value="Chocolat blanc">Chocolat blanc</label><br>
+                    <label><input type="checkbox" name="categorie" value="Chocolat au lait">Chocolat au lait</label><br>
+                    <label><input type="checkbox" name="categorie" value="Chocolat noir">Chocolat noir</label><br>
+                    <label><input type="checkbox" name="categorie" value="Noix/noisette">Noix/noisette</label><br>
+                    <label><input type="checkbox" name="categorie" value="Fruit">Fruit</label><br>
+                    <label><input type="checkbox" name="categorie" value="Caramel">Caramel</label><br>
+                    <label><input type="checkbox" name="categorie" value="Liqueur">Liqueur</label><br>
+                </div>
+                <ul id="produit"></ul>
+            
+                <h2 class="h5">Prix</h2>
+                <div id="prix-filter">
+                    <label for="prix-min">Prix minimum:</label>
+                        <input type="number" id="prix-min" min="1" max="100" value="1" placeholder="Prix min."/>
+                        <br>
+                    <label for="prix-max">Prix maximum:</label>
+                        <input type="number" id="prix-max" min="1" max="100" value="100" placeholder="Prix max."/>
+                </div>
+        
+                <h2 class="h5">Notes</h2>
+                <div id="notes-filter">
+                    <label for="note-min">Note minimum:</label>
+                        <input type="number" id="note-min" min="0" max="5" value="0" placeholder="Note Min.">
+                    <br>                  
+                    <label for="note-max">Note maximum:</label>
+                        <input type="number" id="note-max" min="0" max="5" value="5" placeholder="Note Max.">
+                </div>            
+          </div>
+       <!--mise en place des fiches produits-->        
+          <div class="col-12 col-md-9">
+               <div class="container">
+                    <div class="row" id="product-container"></div>
+              </div>
+          </div>
+        </div>
+      </div>     
+    </main>
+    
+<!--Début du footer 1ére colonne avec la marque et un paragraphe-->  
+    <footer class="container-fluid bgYellow" id="mainFooter">            
+        <section class="row pt-4 gx-4 mb-4">
+            <div class="col-12 col-md-4 col-lg-4">
+                <div class="marque pe-5 me-5">
+                  <h2 class="h3">Choco Pap</h2>              
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi facilisis dictum pellentesque. Fusce lobortis tincidunt velit, eget fringilla quam suscipit ac.</p>
+                </div>
+            </div>
+<!--Footer 2éme colonne contact-->         
+            <div class="col-12 col-md-4 col-lg-4">
+                <div class="contact me-5 pe-4">
+                    <h2 class="h3">Contact</h2>
+                    <p><strong>Adresse:</strong><span class=""> 51 rue du chocolat 75000 Paris</span><Br><strong><span class="">Téléphone:</span></strong><span class=""> 01 23 45 67 89</span><br><strong><span class="">Horaires:</span></strong><span class=""> 9h00-17h00 du Lundi au Vendredi</span></p>
+                </div>
+            </div>   
+<!--Footer 3éme colonne réseaux sociaux--> 
+            <div class="col-12 col-md-4 col-lg-4 pt-5">
+                <div class="reseaux">                    
+                    <a class="facebook" href="http://www.facebook.com" target="_blank" role="button" id="facebook">                       
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                         width="50" height="50"
+                         viewBox="0 0 50 50">
+                        <path d="M41,4H9C6.24,4,4,6.24,4,9v32c0,2.76,2.24,5,5,5h32c2.76,0,5-2.24,5-5V9C46,6.24,43.76,4,41,4z M37,19h-2c-2.14,0-3,0.5-3,2 v3h5l-1,5h-4v15h-5V29h-4v-5h4v-3c0-4,2-7,6-7c2.9,0,4,1,4,1V19z"></path>
+                        </svg>
+                    </a> 
+                    <a class="instagram" href="http://www.instagram.com" target="_blank" role="button" id="instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                        width="50" height="50"
+                        viewBox="0 0 50 50">
+                        <path d="M 16 3 C 8.8324839 3 3 8.8324839 3 16 L 3 34 C 3 41.167516 8.8324839 47 16 47 L 34 47 C 41.167516 47 47 41.167516 47 34 L 47 16 C 47 8.8324839 41.167516 3 34 3 L 16 3 z M 16 5 L 34 5 C 40.086484 5 45 9.9135161 45 16 L 45 34 C 45 40.086484 40.086484 45 34 45 L 16 45 C 9.9135161 45 5 40.086484 5 34 L 5 16 C 5 9.9135161 9.9135161 5 16 5 z M 37 11 A 2 2 0 0 0 35 13 A 2 2 0 0 0 37 15 A 2 2 0 0 0 39 13 A 2 2 0 0 0 37 11 z M 25 14 C 18.936712 14 14 18.936712 14 25 C 14 31.063288 18.936712 36 25 36 C 31.063288 36 36 31.063288 36 25 C 36 18.936712 31.063288 14 25 14 z M 25 16 C 29.982407 16 34 20.017593 34 25 C 34 29.982407 29.982407 34 25 34 C 20.017593 34 16 29.982407 16 25 C 16 20.017593 20.017593 16 25 16 z"></path>
+                        </svg>
+                    </a>         
+                    <a class="twitter" href="http://www.twitter.com" target="_blank" role="button" id="twitter">           
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                        width="50" height="50"
+                        viewBox="0 0 50 50">
+                            <path d="M25,2C12.317,2,2,12.317,2,25s10.317,23,23,23s23-10.317,23-23S37.683,2,25,2z M36.237,20.524 c0.01,0.236,0.016,0.476,0.016,0.717C36.253,28.559,30.68,37,20.491,37c-3.128,0-6.041-0.917-8.491-2.489 c0.433,0.052,0.872,0.077,1.321,0.077c2.596,0,4.985-0.884,6.879-2.37c-2.424-0.044-4.468-1.649-5.175-3.847 c0.339,0.065,0.686,0.1,1.044,0.1c0.505,0,0.995-0.067,1.458-0.195c-2.532-0.511-4.441-2.747-4.441-5.432c0-0.024,0-0.047,0-0.07 c0.747,0.415,1.6,0.665,2.509,0.694c-1.488-0.995-2.464-2.689-2.464-4.611c0-1.015,0.272-1.966,0.749-2.786 c2.733,3.351,6.815,5.556,11.418,5.788c-0.095-0.406-0.145-0.828-0.145-1.262c0-3.059,2.48-5.539,5.54-5.539 c1.593,0,3.032,0.672,4.042,1.749c1.261-0.248,2.448-0.709,3.518-1.343c-0.413,1.292-1.292,2.378-2.437,3.064 c1.122-0.136,2.188-0.432,3.183-0.873C38.257,18.766,37.318,19.743,36.237,20.524z"></path>
+                        </svg>
+                    </a>                    
+                </div>
+            </div> 
+        </section>           
+    </footer>
+
+</body>
+</html>
