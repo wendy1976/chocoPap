@@ -2,27 +2,33 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
+import AddToCartButton from './AddToCartButton'
+
 class ProductCard extends React.Component {
   handleAddToCart = () => {
     this.props.addToCart(this.props.id);
-  }
+  };
+  
+      
 
   render() {
   let rows = []; 
       return (
-   
+      
       <div className="product-card col-12 col-md-3 bgTurquoise mt-1 ms-1 pt-3 pb-3 me-2">
-        <div id="card" className='border'>
+        <div id="card" className='border ps-3 pe-2 pb-2'>
           <img className="img-fluid pt-4" src={require(`./assets/imagesEtLogo/images/${this.props.image}`)} alt={this.props.title} />
           <h4>{this.props.title}</h4>
           <p>{this.props.description}</p>
           <p className="price"><strong>Prix: {this.props.price} €</strong></p>
           <p><strong>Note: {this.props.note} /5</strong></p>
-          <button onClick={this.handleAddToCart}>Ajouter au panier</button>
+         
+          <AddToCartButton onClick={this.handleAddToCart} product={this.props.product} />    
         </div>
       
       {rows}
       </div>
+      
     );
   }
 }
@@ -95,7 +101,7 @@ class FilterPrice extends React.Component {
         },
         {
           id: 8,
-          title: "Chocolat noir praliné",
+          title: "Chocolat noir Love",
           description: "Ballotin de 300g",
           note: 4.00,
           price: 25.00,
@@ -104,7 +110,7 @@ class FilterPrice extends React.Component {
         },
         {
           id: 9,
-          title: "Chocolat au lait praliné",
+          title: "Chocolat au lait pétillant",
           description: "Ballotin de 300g",
           note: 2.50,
           price: 25.00,
@@ -118,13 +124,17 @@ class FilterPrice extends React.Component {
     maxPrice: "100",
     minRating: "0",
     maxRating: "5",
+    
+    cartItems: [],
   }
 
   handleAddToCart = (productId) => {
-    const productToAdd = this.state.products.find(product => product.id === productId);
-    this.setState(prevState => ({
-      cartItems: [...prevState.cartItems, productToAdd]
-    }));
+    this.setState(prevState => {
+      const updatedCartItems = [...prevState.cartItems, this.state.products.find(product => product.id === productId)];
+      return {
+        cartItems: updatedCartItems
+      };
+    });
   }
 
   handleFilterChange = (filter) => {
@@ -191,71 +201,153 @@ class FilterPrice extends React.Component {
           image={product.image}
           addToCart={this.handleAddToCart}
         />
-      ));
-      rows.push(<div className="row" key={i}>{row}</div>);
-    }
+        ));
+        rows.push(<div className="product-row" key={i}>{row}</div>);
+      }
 
-    return (
-      <div>
-        <div className='bgYellow col-12 col-md-2 col-lg-2 ps-2 pt-2 pb-2' id='filtre'>
-        <h4>Filtre</h4>
-        <span className="label"><strong>Catégories:</strong></span>
-          <div>
-            {this.state.filters.map(filter => (
-              <label key={filter} style={{ display: "block" }}>
-                <input
-                  type="checkbox"
-                  checked={this.state.selectedFilters.includes(filter)}
-                  onChange={() => this.handleFilterChange(filter)}
-                />
-                {filter}
-              </label>
-            ))}
-          </div>
-          <div>
-            <span className="label"><strong>Prix:</strong></span>
+      return (
+        <div className='row' >
+          <div className="bgYellow col-12 col-md-2 col-lg-2 justify-content rounded mobile-filter" id="filtre">
+            <h4>Filtre</h4>
+            
+            <div className="d-md-none mb-2">
+              <div className="dropdown">
+                <button
+                  className="btn btn-primary dropdown-toggle justify-content"
+                  type="button"
+                  id="dropdownMenuButton"
+                  data-bs-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Afficher le filtre
+                </button>
+                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a className="dropdown-item" data-bs-toggle="collapse" href="#collapseCategoriesMobile" role="button" aria-expanded="false" aria-controls="collapseCategoriesMobile">
+                    Catégories
+                  </a>
+                  <a className="dropdown-item" data-bs-toggle="collapse" href="#collapsePrixMobile" role="button" aria-expanded="false" aria-controls="collapsePrixMobile">
+                    Prix
+                  </a>
+                  <a className="dropdown-item" data-bs-toggle="collapse" href="#collapseNotesMobile" role="button" aria-expanded="false" aria-controls="collapseNotesMobile">
+                    Notes
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="d-none d-md-block bgYellow rounded ps-4 pt-2 pb-4" id='listeFiltres'>
+              <span className="label"><strong>Catégories:</strong></span>
+              <div>
+                {this.state.filters.map(filter => (
+                  <label key={filter} style={{ display: "block" }}>
+                    <input
+                      type="checkbox"
+                      checked={this.state.selectedFilters.includes(filter)}
+                      onChange={() => this.handleFilterChange(filter)}
+                    />
+                    {filter}
+                  </label>
+                ))}
+              </div>
+              <div>
+                <span className="label"><strong>Prix:</strong></span>
                 <label>
-                Prix minimum:
-                <input
+                  Prix minimum:
+                  <input 
                     type="number"
                     value={this.state.minPrice}
                     onChange={this.handleMinPriceChange}
-                />
+                  />
                 </label>
                 <label>
-                Prix maximum:
-                <input
+                  Prix maximum:
+                  <input
                     type="number"
                     value={this.state.maxPrice}
                     onChange={this.handleMaxPriceChange}
-                />
+                  />
                 </label>
-            </div>
-            <div>
-            <span className="label"><strong>Notes:</strong></span>
+              </div>
+              <div>
+                <span className="label"><strong>Notes:</strong></span>
                 <label>
-                Note minimum:
-                <input
+                  Note minimum:
+                  <input
                     type="number"
                     value={this.state.minRating}
                     onChange={this.handleMinRatingChange}
-                />
+                  />
                 </label>
                 <label>
-                Note maximum:
-                <input
+                  Note maximum:
+                  <input
                     type="number"
                     value={this.state.maxRating}
                     onChange={this.handleMaxRatingChange}
-                />
+                  />
                 </label>
+              </div>
             </div>
+            <div className="collapse d-md-none" id="collapseCategoriesMobile">
+              <span className="label"><strong>Catégories:</strong></span>
+              <div>
+                {this.state.filters.map(filter => (
+                  <label key={filter} style={{ display: "block" }}>
+                    <input
+                      type="checkbox"
+                      checked={this.state.selectedFilters.includes(filter)}
+                      onChange={() => this.handleFilterChange(filter)}
+                    />
+                    {filter}
+                  </label>
+                ))}
+              </div>
             </div>
-            <div className="container">
+            <div className="collapse d-md-none" id="collapsePrixMobile">
+              <span className="label"><strong>Prix:</strong></span>
+              <label>
+                Prix minimum:
+                <input
+                  type="number"
+                  value={this.state.minPrice}
+                  onChange={this.handleMinPriceChange}
+                />
+              </label>
+              <label>
+                Prix maximum:
+                <input
+                  type="number"
+                  value={this.state.maxPrice}
+                  onChange={this.handleMaxPriceChange}
+                />
+              </label>
+            </div>
+            <div className="collapse d-md-none" id="collapseNotesMobile">
+              <span className="label"><strong>Notes:</strong></span>
+              <label>
+                Note minimum:
+                <input
+                  type="number"
+                  value={this.state.minRating}
+                  onChange={this.handleMinRatingChange}
+                />
+              </label>
+              <label>
+                Note maximum:
+                <input
+                  type="number"
+                  value={this.state.maxRating}
+                  onChange={this.handleMaxRatingChange}
+                />
+              </label>
+            </div>
+          </div>
+          <div className="container-fluid">
             {rows}
-            </div>
+          </div>
+          
         </div>
-    );
+      );
   }
 }
 
