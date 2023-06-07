@@ -1,154 +1,208 @@
-import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import React, { useState } from 'react';
+import Product from './Product';
+import Cart from './Cart';
+import ProductFilter from './ProductFilter';
 
-//Création de mon composant liste des produits et rajout du bouton ajout au panier
-class ProductCard extends React.Component {
-  handleAddToCart = () => {
-    this.props.addToCart(this.props.id);
-  }
-  render() {
-    return (
-      
-      <div className="product-card col-12 col-md-4 bgTurquoise pb-4">
-        <img className="img-fluid pt-4"src={require(`./assets/imagesEtLogo/images/${this.props.image}`)} alt={this.props.title} />
-        <h4>{this.props.title}</h4>
-        <p>{this.props.description}</p>     
-        <p className="price"><strong>Prix: {this.props.price} €</strong></p>
-        <p><strong>Note: {this.props.note}</strong></p>
-        <button onClick={this.handleAddToCart}>Ajouter au panier</button>
-      </div>
-      
-    )
-  };
-}
+import image1 from "./assets/imagesEtLogo/images/produit1.1.jpg";
+import image2 from "./assets/imagesEtLogo/images/produit2.jpg";
+import image3 from "./assets/imagesEtLogo/images/produit3.jpg";
+import image4 from "./assets/imagesEtLogo/images/produit4.1.jpg";
+import image5 from "./assets/imagesEtLogo/images/produit5.1.jpg";
+import image6 from "./assets/imagesEtLogo/images/produit6.1.jpg";
+import image7 from "./assets/imagesEtLogo/images/produit7.jpg";
+import image8 from "./assets/imagesEtLogo/images/produit8.1.jpg";
+import image9 from "./assets/imagesEtLogo/images/produit9.1.jpg";
 
-class ProductList extends React.Component {
-  state = {
-    products: [
-      {
-        id: 1,
-        title: "Chocolat noisette cerise",
-        description: "This is product 1",
-        note: 4.50,
-        price: 10.99,
-        image: "produit1.jpg",
-        categories: ["Tous", "Chocolat au lait", "Fruit"]
-      },
-      {
-        id: 2,
-        title: "Chocolat au lait caramel",
-        description: "This is product 2",
-        note: 4.50,
-        price: 19.99,
-        image: "produit2.jpg",
-        categories: ["Tous", "Chocolat au lait", "Caramel"]
-      },
-      {
-        id: 3,
-        title: "Chocolat liqueur cerise",
-        description: "This is product 3",
-        note: 4.50,
-        price: 7.99,
-        image: "produit3.jpg",
-        categories: ["Tous", "Chocolat au lait", "Fruit", "Liqueur"]
-      },
-      {
-        id: 4,
-        title: "Chocolat blanc coeur",
-        description: "This is product 4",
-        note: 4.50,
-        price: 7.99,
-        image: "produit4.1.jpg",
-        categories: ["Tous", "Chocolat blanc"]
-      },
-      {
-        id: 5,
-        title: "Chocolat au lait noisette",
-        description: "This is product 5",
-        note: 4.50,
-        price: 7.99,
-        image: "produit5.1.jpg",
-        categories: ["Tous", "Chocolat au lait", "Noix-noisette"]
-      },
-      {
-        id: 6,
-        title: "Chocolat blanc et au lait",
-        description: "This is product 6",
-        note: 4.50,
-        price: 7.99,
-        image: "produit6.1.jpg",
-        categories: ["Tous", "Chocolat au lait", "chocolat blanc"]
-      },
-      {
-        id: 7,
-        title: "Rocher praliné à la fraise",
-        description: "This is product 7",
-        note: 4.50,
-        price: 7.99,
-        image: "produit7.jpg",
-        categories: ["Tous", "Chocolat au lait", "Fruit"]
-      },
-      {
-        id: 8,
-        title: "Chocolat noir praliné",
-        description: "This is product 8",
-        note: 4.50,
-        price: 7.99,
-        image: "produit8.1.jpg",
-        categories: ["Tous", "Chocolat noir"]
-      },
-      {
-        id: 9,
-        title: "Chocolat au lait praliné",
-        description: "This is product 9",
-        note: 4.50,
-        price: 7.99,
-        image: "produit9.1.jpg",
-        categories: ["Tous", "Chocolat au lait"]
-      }
-    ],
-    filters: ["Tous","chocolat blanc","Chocolat au lait","Chocolat noir","Noix-noisette","Fruit","Caramel","Liqueur"]
-  }
-
- // pour activer l'ajout du produit au panier
-  handleAddToCart = (productId) => {
-    const productToAdd = this.state.products.find(product => product.id === productId);
-    this.setState(prevState => ({
-      cartItems: [...prevState.cartItems, productToAdd]
-    }));
-  }
-  
-
-
-
-
- // pour mettre mes produits 3 par 3 dans ma grille
-  render() {
-    let rows = [];
-    let products = this.state.products;
-    for (let i = 0; i < products.length; i += 3) {
-      let row = products.slice(i, i + 3).map((product) => (
-        <ProductCard
-          key={product.id}
-          title={product.title}
-          description={product.description}
-          note={product.note}
-          price={product.price}
-          image={product.image}
-          addToCart={this.handleAddToCart}
-        />
-      ));
-      rows.push(<div className="row">{row}</div>);
+const ProductList = () => {
+  const [cartItems, setCartItems] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
+  const [filters, setFilters] = useState({
+    category: "Tous",
+    price: {
+      min: 0,
+      max: 100
+    },
+    rating: {
+      min:0,
+      max:5
     }
-// pour retourner le tire de mon composant de produits: la boutique
-    return (
-      <div className="container">
-        <h1 className="text-center pt-5 pb-4 orange">BOUTIQUE</h1>
-        {rows}
-      </div>
-    );
+  });
+
+  const handleAddToCart = (productId) => {
+    const existingItem = cartItems.find((item) => item.id === productId);
+
+    if (existingItem) {
+      const updatedCartItems = cartItems.map((item) => {
+        if (item.id === productId) {
+          return { ...item, quantity: item.quantity + 1 };
+        }
+        return item;
+      });
+
+      setCartItems(updatedCartItems);
+    } else {
+      const product = products.find((product) => product.id === productId);
+
+      const productToAdd = {
+        id: productId,
+        name: product.name,
+        price: product.price,
+        quantity: 1,
+        image: product.image,
+      };
+
+      setCartItems([...cartItems, productToAdd]);
+      setShowPopup(true);
+      setTimeout(() => {
+        setShowPopup(false);
+      }, 2000);
+    }
+  };
+
+  const handleRemoveItem = (itemId) => {
+    const updatedCartItems = cartItems.filter((item) => item.id !== itemId);
+    setCartItems(updatedCartItems);
+  };
+
+  const handleClearCart = () => {
+    setCartItems([]);
+  };
+
+  const products = [
+    {
+      id: 1,
+      name: "Chocolat noisette cerise",
+      description: "Ballotin de 150gr",
+      note: 4.50,
+      price: 12.99,
+      image: image1,
+      categories: ["Tous", "Chocolat au lait", "Fruit"]
+    },
+    {
+      id: 2,
+      name: "Chocolat au lait caramel",
+      description: "Ballotin de 300gr",
+      note: 3.50,
+      price: 25.15,
+      image: image2,
+      categories: ["Tous", "Chocolat au lait", "Caramel"]
+    },
+    {
+      id: 3,
+      name: "Chocolat liqueur cerise",
+      description: "Ballotin de 150gr",
+      note: 4.00,
+      price: 14.99,
+      image: image3,
+      categories: ["Tous", "Chocolat au lait", "Fruit", "Liqueur"]
+    },
+    {
+      id: 4,
+      name: "Chocolat blanc coeur",
+      description: "Ballotin de 300gr",
+      note: 4.80,
+      price: 35.15,
+      image: image4,
+      categories: ["Tous", "Chocolat blanc"]
+    },
+    {
+      id: 5,
+      name: "Chocolat au lait noisette",
+      description: "Ballotin de 300gr",
+      note: 3.50,
+      price: 25.55,
+      image: image5,
+      categories: ["Tous", "Chocolat au lait", "Noix-noisette"]
+    },
+    {
+      id: 6,
+      name: "Chocolat blanc et au lait",
+      description: "Ballotin de 150gr",
+      note: 4.50,
+      price: 14.99,
+      image: image6,
+      categories: ["Tous", "Chocolat au lait", "chocolat blanc"]
+    },
+    {
+      id: 7,
+      name: "Rocher praliné à la fraise",
+      description: "Ballotin de 150g",
+      note: 3.00,
+      price: 14.99,
+      image: image7,
+      categories: ["Tous", "Chocolat au lait", "Fruit"]
+    },
+    {
+      id: 8,
+      name: "Chocolat noir Love",
+      description: "Ballotin de 300g",
+      note: 4.00,
+      price: 25.55,
+      image: image8,
+      categories: ["Tous", "Chocolat noir"]
+    },
+    {
+      id: 9,
+      name: "Chocolat au lait pétillant",
+      description: "Ballotin de 300g",
+      note: 2.50,
+      price: 25.15,
+      image: image9,
+      categories: ["Tous", "Chocolat au lait"]
+    },
+  ];
+
+  const filteredProducts = products.filter((product) => {
+    // Filtrage par catégorie
+    if (filters.category !== "Tous" && !product.categories.includes(filters.category)) {
+      return false;
+    }
+
+    // Filtrage par prix
+    if (
+      filters.price.min !== "" &&
+      filters.price.max !== "" &&
+      (product.price < filters.price.min || product.price > filters.price.max)
+    ) {
+      return false;
+    }
+
+    // Filtrage par note
+  if (filters.rating.min !== "" && filters.rating.max !== "" && (product.note < filters.rating.min || product.note > filters.rating.max)) {
+    return false;
   }
-}
+
+    return true;
+  });
+
+  return (
+     <div>
+      <ProductFilter filters={filters} setFilters={setFilters} />
+
+      <div className="product-list row">
+        {filteredProducts.map((product) => (
+          <Product
+            key={product.id}
+            id={product.id}
+            image={product.image}
+            name={product.name}
+            description={product.description}
+            price={product.price}
+            note={product.note}
+            onAddToCart={handleAddToCart}
+          />
+        ))}
+      </div>
+
+      <Cart
+        cartItems={cartItems}
+        onRemoveItem={handleRemoveItem}
+        onClearCart={handleClearCart}
+      />
+
+      {showPopup && <div className="popup">Produit ajouté au panier !</div>}
+    </div>
+  );
+};
 
 export default ProductList;
