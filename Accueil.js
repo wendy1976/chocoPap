@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './Header';
 import CarouselComponent from './CarouselComponent';
 import Footer from './Footer';
+import { Link } from 'react-router-dom';
 
 
 
@@ -14,8 +15,10 @@ function Accueil() {
       <Header />     
       <CarouselComponent /> 
       <div>
-        <a href="boutique" className="btn bgTurquoise h4 btn-lg orange" title="Voir la boutique" id="laBoutique"><strong>VOIR LA BOUTIQUE</strong></a>  
-      </div>    
+        <Link to="/boutique" className="btn bgTurquoise h4 btn-lg orange" title="Voir la boutique" id="laBoutique">
+        <strong>VOIR LA BOUTIQUE</strong>
+        </Link>
+      </div>
       <Footer />
     </div>
   );
