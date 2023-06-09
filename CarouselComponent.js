@@ -3,7 +3,7 @@ import { Carousel } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-
+//Création de mon slider
 function CarouselComponent() {
     return (
       <Carousel>

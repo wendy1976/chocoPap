@@ -15,7 +15,7 @@ function Footer() {
             </p>
           </div>
         </div>
-
+        
         <div className="col-12 col-md-4 col-lg-4">
           <div className="contact me-5 pe-4">
             <h2 className="h3">Contact</h2>

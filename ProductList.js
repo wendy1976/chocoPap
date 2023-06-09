@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Product from './Product';
 import Cart from './Cart';
 import ProductFilter from './ProductFilter';
-
+// Importation de toutes mes images de produits
 import image1 from "./assets/imagesEtLogo/images/produit1.1.jpg";
 import image2 from "./assets/imagesEtLogo/images/produit2.jpg";
 import image3 from "./assets/imagesEtLogo/images/produit3.jpg";
@@ -13,11 +13,15 @@ import image7 from "./assets/imagesEtLogo/images/produit7.jpg";
 import image8 from "./assets/imagesEtLogo/images/produit8.1.jpg";
 import image9 from "./assets/imagesEtLogo/images/produit9.1.jpg";
 
+
 const ProductList = () => {
+  // État local pour les articles du panier
   const [cartItems, setCartItems] = useState([]);
+  // État local pour afficher ou masquer la fenêtre contextuelle
   const [showPopup, setShowPopup] = useState(false);
+  // État local pour les filtres de produits
   const [filters, setFilters] = useState({
-    category: "Tous",
+    category: ["Tous"],
     price: {
       min: 0,
       max: 100
@@ -29,9 +33,11 @@ const ProductList = () => {
   });
 
   const handleAddToCart = (productId) => {
+     // Recherche de l'article existant dans le panier
     const existingItem = cartItems.find((item) => item.id === productId);
 
     if (existingItem) {
+       // Mise à jour de la quantité de l'article existant dans le panier
       const updatedCartItems = cartItems.map((item) => {
         if (item.id === productId) {
           return { ...item, quantity: item.quantity + 1 };
@@ -39,10 +45,12 @@ const ProductList = () => {
         return item;
       });
 
-      setCartItems(updatedCartItems);
+      setCartItems(updatedCartItems);// Mise à jour des articles du panier
     } else {
+       // Recherche du produit correspondant à l'identifiant
       const product = products.find((product) => product.id === productId);
 
+       // Création d'un nouvel article à ajouter au panier
       const productToAdd = {
         id: productId,
         name: product.name,
@@ -51,23 +59,25 @@ const ProductList = () => {
         image: product.image,
       };
 
-      setCartItems([...cartItems, productToAdd]);
-      setShowPopup(true);
+      setCartItems([...cartItems, productToAdd]);// Ajout du nouvel article au panier
+      setShowPopup(true);// Affichage de la fenêtre contextuelle
       setTimeout(() => {
-        setShowPopup(false);
+        setShowPopup(false);// Masquage de la fenêtre contextuelle après 2 secondes
       }, 2000);
     }
   };
 
   const handleRemoveItem = (itemId) => {
+    // Filtrer les articles du panier pour exclure celui avec l'ID donné
     const updatedCartItems = cartItems.filter((item) => item.id !== itemId);
-    setCartItems(updatedCartItems);
+    setCartItems(updatedCartItems);// Mise à jour des articles du panier
   };
 
   const handleClearCart = () => {
-    setCartItems([]);
+    setCartItems([]);// Définit un tableau vide pour les articles du panier
   };
 
+  // Tous mes produits et leurs éléments
   const products = [
     {
       id: 1,
@@ -152,9 +162,22 @@ const ProductList = () => {
     },
   ];
 
+  // Cocher automatiquement la case "Tous" lorsque la page est chargée
+  useEffect(() => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      category: "Tous",
+    }));
+  }, []);
+
+  //  logique de filtrage
   const filteredProducts = products.filter((product) => {
     // Filtrage par catégorie
-    if (filters.category !== "Tous" && !product.categories.includes(filters.category)) {
+    if (
+      filters.category.length > 0 &&
+      !filters.category.includes("Tous") &&
+      !product.categories.some((cat) => filters.category.includes(cat))
+    ) {
       return false;
     }
 
@@ -176,33 +199,34 @@ const ProductList = () => {
   });
 
   return (
-     <div>
-      <ProductFilter filters={filters} setFilters={setFilters} />
+    <div>
+     <ProductFilter filters={filters} setFilters={setFilters} className='order-first filter-container-mobile ' />
 
-      <div className="product-list row">
-        {filteredProducts.map((product) => (
-          <Product
-            key={product.id}
-            id={product.id}
-            image={product.image}
-            name={product.name}
-            description={product.description}
-            price={product.price}
-            note={product.note}
-            onAddToCart={handleAddToCart}
-          />
-        ))}
-      </div>
+     <div className="product-list row">
+       {filteredProducts.map((product) => (
+         <Product
+           key={product.id}
+           id={product.id}
+           image={product.image}
+           name={product.name}
+           description={product.description}
+           price={product.price}
+           note={product.note}
+           onAddToCart={handleAddToCart}
+         />
+       ))}
+     </div>
 
-      <Cart
-        cartItems={cartItems}
-        onRemoveItem={handleRemoveItem}
-        onClearCart={handleClearCart}
-      />
+     <Cart
+       cartItems={cartItems}
+       onRemoveItem={handleRemoveItem}
+       onClearCart={handleClearCart}
+     />
 
-      {showPopup && <div className="popup">Produit ajouté au panier !</div>}
-    </div>
-  );
+     {showPopup && <div className="popup">Produit ajouté au panier !</div>}
+   </div>
+ );
 };
+
 
 export default ProductList;

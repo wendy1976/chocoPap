@@ -5,18 +5,19 @@ import Header from './Header';
 import CarouselComponent from './CarouselComponent';
 import Footer from './Footer';
 
-//création de l'objet logo, mis un id pour gérer sa dimension dans mon CSS 
-const Logo=() => <img src={require("./assets/imagesEtLogo/images/logo.png")} className="App-logo img-fluid" alt="logo" id="logo"/>;
+
+
 //Appels de mes composants pour ma page d'accueil
 function Accueil() {
   return (
     <div>   
-    <Logo />
-    <Header />     
-    <CarouselComponent />    
-    <Footer />
-  </div>
-
+      <Header />     
+      <CarouselComponent /> 
+      <div>
+        <a href="boutique" className="btn bgTurquoise h4 btn-lg orange" title="Voir la boutique" id="laBoutique"><strong>VOIR LA BOUTIQUE</strong></a>  
+      </div>    
+      <Footer />
+    </div>
   );
 }
 

@@ -1,5 +1,6 @@
 import React from 'react';
 
+//Création du rendu d'une fiche produit
 const Product = ({ id, name, description, price, note, image, onAddToCart }) => {
   return (
     <div className='product-card col-12 col-md-3 bgTurquoise mt-1 ms-1 pt-3 pb-3 me-2'>

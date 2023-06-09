@@ -2,96 +2,106 @@
 @import url(https://fonts.google.com/?query=Droid+Serif);
 
 :root {
-    --white: #FFFFFF;
-    --turquoise: #55C0CF;
-    --brown: #2C1E1E;    
-    --black: #1F1615;
-    --orange: #B65F28;     
-    --yellow: #FFD543;
+  --white: #FFFFFF;
+  --turquoise: #55C0CF;
+  --brown: #2C1E1E;    
+  --black: #1F1615;
+  --orange: #B65F28;     
+  --yellow: #FFD543;
 }
 
-.orange{
-    color: #B65F28;
+.orange {
+  color: #B65F28;
+}
+
+.turquoise {
+  color: #55C0CF;
 }
 
 .bgOrange {
-    background-color: var(--orange);
+  background-color: var(--orange);
 }
 
 .bgYellow {
-    background-color: var(--yellow);
+  background-color: var(--yellow);
 }
 
 .bgTurquoise {
-    background-color: #55C0CF;
+  background-color: #55C0CF;
 }
-
+/*réglage du header*/
 #mainHeader {   
-    padding: 0 5% 0 5%;    
-    top: 0; 
+  padding: 0 5% 0 5%;    
+  top: 0; 
 } 
-/*réglage du slider*/
-#navbar{
-  background-color: #FFD543;
 
+/*réglage de la navbar*/
+#navbar {
+  background-color: #FFD543;
 }
+
 .btnPanier{
-    background-color: #55C0CF;
+  background-color: #55C0CF;
 }
 
 #logo {
-   
-    width: 12%;
-    height: 12%;
+  width: 12%;
+  height: 12%;
 }
 
+/*réglage du footer et de ces éléments*/
 #mainFooter {   
-    padding: 0 5% 0 5%;    
+  padding: 0 5% 0 5%;    
 }    
 
 #facebook {
-    padding-right: 10%;
-    padding-left: 7%;
+  padding-right: 10%;
+  padding-left: 7%;
 }
 
-#instagram{
-    padding-right: 10%; 
+#instagram {
+  padding-right: 10%; 
 }
+
 /*background du bouton panier*/
-#panier{
-    background-color: #55C0CF;
+#panier {
+  background-color: #55C0CF;
 }
+
 /*effet de survol du bouton panier*/
-#panier:hover{
-   background-color: #B65F28;
+#panier:hover {
+  background-color: #B65F28;
 }
+
 /*réglage du slider*/
 #slider {
-    position: relative;
-    width: auto;
-    margin: auto;
-    display: flex;    
-    align-items: center;
+  position: relative;
+  width: auto;
+  margin: auto;
+  display: flex;    
+  align-items: center;
 }
-/*réglage des 2 flèches */
+
+/*réglage des 2 flèches du slider */
 #precedent, #suivant {
-    cursor: pointer;
-    transition: ease;
-    opacity: 0;
-    position: absolute;
-    font-size: 20px;
-    color: var(--white);
-    background-color: var(--black);
-    padding: 10px;
-   
+  cursor: pointer;
+  transition: ease;
+  opacity: 0;
+  position: absolute;
+  font-size: 20px;
+  color: var(--white);
+  background-color: var(--black);
+  padding: 10px;   
 }
+
 /*réglage de la largeur de la photo */
-#slide{
-    width: 100%;
+#slide {
+  width: 100%;
 }
+
 /*réglage de la position des flèches qui étaient collées au bord de la page */
 #precedent {
-    left: 5%;
+  left: 5%;
 }
 
 #suivant {
@@ -100,136 +110,93 @@
 /*petit effet hover */
 #slider:hover #precedent,
 #slider:hover #suivant {
-    opacity: 1;
-    color: #B65F28;
-   
+  opacity: 1;
+  color: #B65F28;   
 }
+
 /*le positionnement de mon bouton voir la boutique au milieu du slide */
-#laBoutique{
-    top: -460px;
-    position: relative;
-    left: 43%; 
-    background-color: #55C0CF;
-    }
-/*effet de survol mon bouton voir la boutique au milieu du slide */    
-#laBoutique:hover{
-    color: #B65F28;
-
-    }    
-
-/*page boutique: le paramètres du container, tableau js avec les produits et les prix*/
-
-.boutique {
-    padding-top: 5%;
-    margin-top: 2%;
-    padding-bottom: 10%;
+#laBoutique {
+  top: -460px;
+  position: relative;
+  left: 43%; 
+  background-color: #55C0CF;
 }
+
+/*effet de survol mon bouton voir la boutique au milieu du slide */    
+#laBoutique:hover {
+  color: #B65F28;
+}  
+ 
+/*page boutique: les paramètres du container, tableau js avec les produits et les prix*/
+.boutique {
+  padding-top: 5%;
+  margin-top: 2%;
+  padding-bottom: 10%;
+}
+
 .product-list {
-   display: flex;
-   padding-left: 25%;
-  
+  display: flex;
+  padding-left: 25%;    
+}
+/*page boutique: les paramètres de mes fiches produits*/
+.product-card {
+  width: calc(33.33% - 20px);
+  float: right;
+  margin: 10px;
+  padding: 10px;  
+  border-radius: 5px;
+  text-align: center;
+  background-color: #55C0CF;
+}
+
+.product-card img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+/*page boutique: les paramètres du filtre et du bouton*/
+#filtre {   
+  position: absolute;
+  background-color: #FFD543;
+  margin-left: 2%;
+  width: 20%;   
+}   
  
- 
-  
-   
-  
-    
-  }
+#boutonFiltre {
+  display: inline-block;
+  height: auto;   
+}
 
-  .product-card {
-    width: calc(33.33% - 20px);
-    float: right;
-    margin: 10px;
-    padding: 10px;  
-    border-radius: 5px;
-    text-align: center;
-    background-color: #55C0CF;
-   
-   
-  }
-
-  .product-card img {
-    width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-    border-radius: 5px;
-  }
-
-  #filtre{
-   
-    position: absolute;
-    background-color: #FFD543;
-    margin-left: 2%;
-    width: 20%;
-   
- }   
- 
- 
-
- #boutonFiltre{
-    display: inline-block;
-    height: auto;
-   
- }
-/* Styles pour le bouton filtre sur les portables */
- @media (max-width: 767px) {
-    #boutonFiltre {
-      display: inline-block;
-      width: auto;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .mobile-filter {
-      position: absolute;
-      z-index: 1;
-      top: 20%;
-      left: 0;
-      width: 100%;
-    }
-  }
-    
-  
- /* Styles pour les appareils mobiles, pour que les produits s'affichent l'un en dessous de l'autre */
-@media (max-width: 767px) {
-    .product-list {
-      width: 100%;
-    }
-  }
 /* Styles par défaut pour les listes déroulantes */
 .filter-section select {
-    width: 100%;
-    padding: 5px;
-    border-radius: 5px;
-  }
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+/* gestion de la fenêtre popup du panier */
+.cart-popup {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 9999;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 300px;
+  max-height: 400px;
+  overflow-y: auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.cart-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+}
   
-  /* Styles pour les appareils mobiles */
-  @media (max-width: 767px) {
-    .filter-section select {
-      width: 100%;
-    }
-  }
-   /* gestion de la fenêtre popup du panier */
-   .cart-popup {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    z-index: 9999;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 10px;
-    width: 300px;
-    max-height: 400px;
-    overflow-y: auto;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-  
-  .cart-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-  }
-    
 /* POPUP quand on ajoute un produit au panier  */  
 .popup {
   position: fixed;
@@ -249,3 +216,48 @@
   right: 0;
   margin-top: 5%;
 }
+
+/* Styles spécifiques pour les appareils mobiles pour le bouton boutique */
+@media (max-width: 767px) {
+  #laBoutique {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+  };
+}  
+
+/* Styles pour le bouton filtre sur les portables */
+@media (max-width: 767px) {
+  #boutonFiltre {
+    display: inline-block;
+    width: auto;
+  };
+}
+
+/* Styles pour le filtre sur les portables */
+@media (max-width: 768px) {
+  .mobile-filter {
+    position: absolute;
+    z-index: 1;
+    top: 20%;
+    left: 0;
+    width: 100%;
+  };
+}
+  
+/* Styles pour les appareils mobiles, pour que les produits s'affichent l'un en dessous de l'autre */
+@media (max-width: 767px) {
+  .product-list {
+    width: 100%;
+  };
+}
+
+/* Styles pour les appareils mobiles */
+@media (max-width: 767px) {
+  .filter-container-mobile {
+    /* Styles pour la liste déroulante */
+    display: flex;
+    flex-direction: column;
+  };  
+}
+ 
